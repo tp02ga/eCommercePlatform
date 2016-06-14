@@ -5,21 +5,25 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.coderscampus.security.Authority;
+
 @Entity
 public class User
 {
   private Long id;
-  private String role;
   private String password;
   private String email;
   private Set<Product> products = new HashSet<>();
   private Set<Review> reviews = new HashSet<>();
   private Cart cart;
+  // OneToMany relationship between a User and its Authorities
+  private Set<Authority> authorities = new HashSet<>();
   
   @Id
   @GeneratedValue
@@ -31,16 +35,6 @@ public class User
   public void setId(Long id)
   {
     this.id = id;
-  }
-
-  public String getRole()
-  {
-    return role;
-  }
-
-  public void setRole(String role)
-  {
-    this.role = role;
   }
 
   public String getPassword()
@@ -94,5 +88,16 @@ public class User
   public void setCart(Cart cart)
   {
     this.cart = cart;
+  }
+
+  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+  public Set<Authority> getAuthorities()
+  {
+    return authorities;
+  }
+
+  public void setAuthorities(Set<Authority> authorities)
+  {
+    this.authorities = authorities;
   }
 }
