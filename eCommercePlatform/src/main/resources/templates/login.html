@@ -2,6 +2,16 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <title>Login</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+$(function () {
+  $("#createNewUser").click(function () {
+    window.location.href = "register";
+  });
+});
+
+</script>
 </head>
 <body>
 	<form action="" method="post">
@@ -25,7 +35,8 @@
 					id="password" name="password" />
 			</p>
 			<div>
-				<button type="submit" class="btn">Log in</button>
+				<button type="submit" class="btn">Log in</button> 
+				<input type="button" style="margin-left: 3em;" id="createNewUser" value="Create New User"/>
 			</div>
 		</fieldset>
 	</form>

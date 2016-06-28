@@ -17,6 +17,16 @@ public class Authority implements GrantedAuthority
   private User user;
   private String role;
 
+  public Authority()
+  {
+  }
+  
+  public Authority (String role, User user)
+  {
+    this.role = role;
+    this.user = user;
+  }
+  
   @Id
   @GeneratedValue
   public Long getId()
