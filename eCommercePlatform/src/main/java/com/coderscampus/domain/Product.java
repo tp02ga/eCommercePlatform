@@ -17,6 +17,7 @@ public class Product
 {
   private Long id;
   private Byte[] image;
+  private String imageUrl;
   private Double price; 
   private String description;
   private String shortDescription;
@@ -108,5 +109,15 @@ public class Product
   public void setCarts(Set<Cart> carts)
   {
     this.carts = carts;
+  }
+
+  public String getImageUrl()
+  {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl)
+  {
+    this.imageUrl = imageUrl;
   }
 }

@@ -354,3 +354,13 @@
     margin: 0;
   }
 }
+
+.card {
+  border: 1px dashed;
+  height: 15em;
+}
+
+.card button[id*='createProduct'] {
+  margin-top: 6em;
+  
+}
