@@ -69,7 +69,8 @@ $(function()
       url: "dashboard/products/"+id,
       method: "post",
       type: "json",
-      data: { "imageUrl": imageVal},
+      data: { "fieldName": "imageUrl", 
+        "fieldValue": imageVal},
       success: function (product) {
         console.log(product);
         createPlaceholderCard();
@@ -79,6 +80,11 @@ $(function()
       }
     });
     
+    /*
+     1. {"imageUrl" : imageVal}   (the specific way of sending data)
+     2. {"fieldName" : "imageUrl",
+         "fieldValue" : imageVal} (the generic way of sending data)
+      */
   });
 });
 

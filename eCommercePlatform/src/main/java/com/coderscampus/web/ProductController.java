@@ -1,5 +1,7 @@
 package com.coderscampus.web;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coderscampus.domain.Product;
 import com.coderscampus.repository.ProductRepository;
+import com.coderscampus.service.SaveHelperService;
 
 @Controller
 @RequestMapping("dashboard/products")
@@ -26,15 +29,16 @@ public class ProductController
   }
   
   @RequestMapping(value="{productId}", method=RequestMethod.POST)
-  public @ResponseBody Product updateProduct (@PathVariable Long productId, @RequestParam String imageUrl)
+  public @ResponseBody Product updateProduct (@PathVariable Long productId, 
+      @RequestParam String fieldName,
+      @RequestParam String fieldValue) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
   {
+    
     Product product = productRepo.findOne(productId);
     
-    product.setImageUrl(imageUrl);
-    
-    return productRepo.save(product);
+    return SaveHelperService.save(productRepo, product, Product.class, fieldName, fieldValue);
   }
-
+  
   @Autowired
   public void setProductRepo(ProductRepository productRepo)
   {
