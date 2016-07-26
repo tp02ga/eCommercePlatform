@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DashboardController
 {
-
+  @RequestMapping(value="/", method=RequestMethod.GET)
+  public String rootGet ()
+  {
+    return "redirect:/dashboard";
+  }
+  
   @RequestMapping(value="/dashboard", method=RequestMethod.GET)
   public String dashboardGet (ModelMap model)
   {

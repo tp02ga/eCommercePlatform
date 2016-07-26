@@ -46,6 +46,8 @@ $(function()
       success: function (product) {
         console.log(product);
         
+        // go through each generic product placeholder card and replace
+        //  the generic id (0) with the id saved in the DB.
         $("[id*='-0']").each(function () {
           var elementId = $(this).prop("id");
           elementId = elementId.replace("\-0", "-"+product.id);
@@ -73,7 +75,9 @@ $(function()
         "fieldValue": imageVal},
       success: function (product) {
         console.log(product);
-        createPlaceholderCard();
+        
+        $("#placeholderCard2-" + product.id).addClass("hidden");
+        $("#placeholderCard3-" + product.id).removeClass("hidden");
       },
       error: function () {
         console.log("error");
@@ -86,7 +90,60 @@ $(function()
          "fieldValue" : imageVal} (the generic way of sending data)
       */
   });
+  
+  $("body").on("click", "button[id*='addShortDesc']", function () {
+    var id = getId($(this));
+    var shortDescVal = $("#shortDesc-"+id).val();
+    
+    $.ajax({
+      url: "dashboard/products/"+id,
+      method: "post",
+      type: "json",
+      data: { "fieldName": "shortDescription", 
+        "fieldValue": shortDescVal},
+      success: function (product) {
+        console.log(product);
+        $("#placeholderCard3-" + product.id).addClass("hidden");
+        $("#placeholderCard4-" + product.id).removeClass("hidden");
+      },
+      error: function () {
+        console.log("error");
+      }
+    });
+  });
+  
+  $("body").on("click", "button[id*='addPrice']", function () {
+    var id = getId($(this));
+    var priceVal = $("#price-"+id).val();
+    
+    $.ajax({
+      url: "dashboard/products/"+id,
+      method: "post",
+      type: "json",
+      data: { "fieldName": "price", 
+        "fieldValue": priceVal},
+      success: function (product) {
+        console.log(product);
+        $("#placeholderCard4-" + product.id).addClass("hidden");
+        showFinishedProduct(product);
+        createPlaceholderCard();
+      },
+      error: function () {
+        console.log("error");
+      }
+    });
+  });
+
 });
+
+function showFinishedProduct(product) {
+  $("#placeholderCard4-"+product.id).after("<div class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 card\" id=\"productCard-"+product.id+"\">" +
+  		"<img src='"+product.imageUrl+"'/>" +
+  		"<p>"+product.shortDescription+"</p>" +
+  		"$" + product.price +
+  		"</div>");
+  
+}
 
 function getId(obj) {
   var id = $(obj).prop("id");

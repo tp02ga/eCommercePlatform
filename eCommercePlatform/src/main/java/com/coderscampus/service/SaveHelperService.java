@@ -16,10 +16,32 @@ public class SaveHelperService
     //  therefore we need to capitalize the first letter to properly invoke the setter method
     fieldName = StringUtils.capitalize(fieldName);
     
-    Method method = clazz.getMethod("set" + fieldName, String.class);
+    Method[] methods = clazz.getMethods();
+    Method method = null; 
     
-    // ex: setImageUrl("theImageUrl")
-    method.invoke(obj, fieldValue);
+    for (Method aMethod : methods)
+    {
+      if (aMethod.getName().equals("set" + fieldName))
+      {
+        method = aMethod;
+        if (method.getParameterTypes()[0].getName().indexOf("String") > -1)
+        {
+          // we know that this setter method takes a String
+          method.invoke(obj, fieldValue);
+        }
+        else if (method.getParameterTypes()[0].getName().indexOf("Double") > -1)
+        {
+          // strip out any currency characters in the String before converting to a Double
+          fieldValue = fieldValue.replace("$", "");
+          
+          // we know that this setter method takes a Double
+          method.invoke(obj, Double.valueOf(fieldValue));
+        }
+        break;
+      }
+    }
+    
+    
     
     return repo.save(obj);
   }
