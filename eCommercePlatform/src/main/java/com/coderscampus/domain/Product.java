@@ -6,13 +6,18 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product
 {
   private Long id;
@@ -78,7 +83,7 @@ public class Product
     this.shortDescription = shortDescription;
   }
 
-  @ManyToOne
+  @ManyToOne(fetch=FetchType.EAGER)
   public User getUser()
   {
     return user;
@@ -89,7 +94,7 @@ public class Product
     this.user = user;
   }
 
-  @OneToMany(cascade=CascadeType.ALL, mappedBy="product")
+  @OneToMany(cascade=CascadeType.ALL, mappedBy="product", fetch=FetchType.EAGER)
   public Set<Review> getReviews()
   {
     return reviews;
@@ -100,7 +105,7 @@ public class Product
     this.reviews = reviews;
   }
 
-  @ManyToMany(cascade=CascadeType.ALL, mappedBy="products")
+  @ManyToMany(cascade=CascadeType.ALL, mappedBy="products", fetch=FetchType.EAGER)
   public Set<Cart> getCarts()
   {
     return carts;

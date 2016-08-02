@@ -3,6 +3,7 @@ package com.coderscampus.web;
 import java.lang.reflect.InvocationTargetException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coderscampus.domain.Product;
+import com.coderscampus.domain.User;
 import com.coderscampus.repository.ProductRepository;
 import com.coderscampus.service.SaveHelperService;
 
@@ -21,9 +23,11 @@ public class ProductController
   private ProductRepository productRepo;
   
   @RequestMapping(value="", method=RequestMethod.POST)
-  public @ResponseBody Product addProduct ()
+  public @ResponseBody Product addProduct (@AuthenticationPrincipal User user)
   {
     Product product = new Product();
+    
+    product.setUser(user);
     
     return productRepo.save(product);
   }

@@ -12,8 +12,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.coderscampus.security.Authority;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User
 {
   private Long id;
@@ -57,7 +60,7 @@ public class User
     this.email = email;
   }
 
-  @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+  @OneToMany(cascade=CascadeType.ALL, mappedBy="user", fetch=FetchType.EAGER)
   public Set<Product> getProducts()
   {
     return products;
@@ -68,7 +71,7 @@ public class User
     this.products = products;
   }
 
-  @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+  @OneToMany(cascade=CascadeType.ALL, mappedBy="user", fetch=FetchType.EAGER)
   public Set<Review> getReviews()
   {
     return reviews;
@@ -79,7 +82,7 @@ public class User
     this.reviews = reviews;
   }
 
-  @OneToOne(cascade=CascadeType.ALL, mappedBy="user")
+  @OneToOne(cascade=CascadeType.ALL, mappedBy="user", fetch=FetchType.EAGER)
   public Cart getCart()
   {
     return cart;

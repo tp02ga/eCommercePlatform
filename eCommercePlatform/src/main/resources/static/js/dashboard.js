@@ -138,7 +138,7 @@ $(function()
 
 function showFinishedProduct(product) {
   $("#placeholderCard4-"+product.id).after("<div class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 card\" id=\"productCard-"+product.id+"\">" +
-  		"<img src='"+product.imageUrl+"'/>" +
+  		"<img class=\"center-block\" src='"+product.imageUrl+"'/>" +
   		"<p>"+product.shortDescription+"</p>" +
   		"$" + product.price +
   		"</div>");
@@ -153,13 +153,23 @@ function getId(obj) {
 
 function createPlaceholderCard() {
   $("#products").append(
-    "<div id=\"placeholderCard1-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 card step1\">"+
+    "<div id=\"placeholderCard1-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 placeholderCard step1\">"+
     "  <button id=\"createProduct-0\" class=\"btn btn-primary btn-block\">Create Product</button>"+
     "</div>"+
-    "<div id=\"placeholderCard2-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 card step2 hidden\">"+
+    "<div id=\"placeholderCard2-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 placeholderCard step2 hidden\">"+
     "  <p>Please type in the image URL: </p>"+
-    "  <input type=\"text\" id=\"imageUrl\" placeholder=\"paste img url\"/>"+
+    "  <input type=\"text\" id=\"imageUrl-0\" placeholder=\"paste img url\"/>"+
     "  <button id=\"addImageUrl-0\" class=\"btn btn-primary btn-block\">Next</button>"+
+    "</div>"+
+    "<div id=\"placeholderCard3-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 placeholderCard step2 hidden\">"+
+    "  <p>Please type in a short description of your product: </p>"+
+    "  <input type=\"text\" id=\"shortDesc-0\" placeholder=\"this is a widget that will make your life better\"/>"+
+    "  <button id=\"addShortDesc-0\" class=\"btn btn-primary btn-block\">Next</button>"+
+    "</div>"+
+    "<div id=\"placeholderCard4-0\" class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 placeholderCard step2 hidden\">"+
+    "  <p>Please type in the price of your product: </p>"+
+    "  <input type=\"text\" id=\"price-0\" placeholder=\"$40\"/>"+
+    "  <button id=\"addPrice-0\" class=\"btn btn-primary btn-block\">Finish</button>"+
     "</div>");
   
 }

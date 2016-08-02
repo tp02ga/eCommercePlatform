@@ -356,13 +356,33 @@
 }
 
 .card {
-  border: 1px dashed;
+  border: 1px solid;
   height: 15em;
 }
 
 .card button[id*='createProduct'] {
   margin-top: 6em;
   
+}
+
+.card img {
+  max-height: 8em;
+  max-width: 8em;
+}
+
+.placeholderCard {
+  border: 1px dashed;
+  height: 15em;
+}
+
+.placeholderCard button[id*='createProduct'] {
+  margin-top: 6em;
+  
+}
+
+.placeholderCard img {
+  max-height: 8em;
+  max-width: 8em;
 }
 
 

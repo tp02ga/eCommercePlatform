@@ -3,11 +3,16 @@ package com.coderscampus.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Review
 {
   private Long id;
@@ -60,7 +65,7 @@ public class Review
     this.date = date;
   }
 
-  @ManyToOne
+  @ManyToOne(fetch=FetchType.EAGER)
   public User getUser()
   {
     return user;
