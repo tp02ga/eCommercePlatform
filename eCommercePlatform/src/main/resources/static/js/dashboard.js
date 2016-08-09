@@ -36,6 +36,27 @@ $(function()
       "$" + $("#slider-range").slider("values", 0) + " - $"
           + $("#slider-range").slider("values", 1));
   
+//  $("body").on("mouseenter", "div[id*='productCard']", function () {
+//    $(this).css("background-color", "gray");
+//  });
+  $("body").on("click", "button[id*='editButton']", function () {
+    var id = $(this).attr("id");
+    id = id.split("-")[1];
+    
+    window.location.href = "products/" + id;
+  });
+  
+  $("body").on({
+    mouseenter: function () {
+      $(this).css("background-color", "rgb(228, 228, 228)");
+      $(this).children("button[id*='editButton']").removeClass("hidden");
+    },
+    mouseleave: function () {
+      $(this).css("background-color", "rgb(255, 255, 255)");
+      $(this).children("button[id*='editButton']").addClass("hidden");
+    }
+  }, "div[id*='productCard']");
+  
   $("body").on("click", "button[id*='createProduct']", function () {
     var id = getId($(this));
     

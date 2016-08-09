@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +43,17 @@ public class ProductController
     
     return SaveHelperService.save(productRepo, product, Product.class, fieldName, fieldValue);
   }
+  
+  @RequestMapping(value="{productId}", method=RequestMethod.GET)
+  public String productGet (@PathVariable Long productId, ModelMap model)
+  {
+    Product product = productRepo.findOne(productId);
+    
+    model.put("product", product);
+    
+    return "product";
+  }
+  
   
   @Autowired
   public void setProductRepo(ProductRepository productRepo)
