@@ -2,3 +2,7 @@
   width: 2em;
   margin-top: -0.5em;
 }
+
+textarea.form-control {
+  height: 15em;
+}

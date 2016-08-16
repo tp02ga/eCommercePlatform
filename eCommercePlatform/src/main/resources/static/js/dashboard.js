@@ -43,7 +43,7 @@ $(function()
     var id = $(this).attr("id");
     id = id.split("-")[1];
     
-    window.location.href = "products/" + id;
+    window.location.href = "/dashboard/products/" + id;
   });
   
   $("body").on({

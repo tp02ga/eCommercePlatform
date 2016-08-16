@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,18 @@ public class ProductController
     product.setUser(user);
     
     return productRepo.save(product);
+  }
+  
+  @RequestMapping(value="{productId}/edit", method=RequestMethod.POST)
+  public String updateProduct (@ModelAttribute Product product, @AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model)
+  {
+    product.setUser(user);
+    
+    product = productRepo.save(product);
+    
+    model.put("product", product);
+    
+    return "redirect:/dashboard/products/" + product.getId();
   }
   
   @RequestMapping(value="{productId}", method=RequestMethod.POST)
