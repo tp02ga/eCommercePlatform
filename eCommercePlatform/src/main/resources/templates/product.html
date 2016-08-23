@@ -26,6 +26,8 @@
 /*<![CDATA[*/
 $(function () {
   var formattedPrice = [[${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}]];
+  var productId = /*[[${product.id}]]*/ 1;
+  
   $("#price").val(formattedPrice);
   
   $("#price").change(function () {
@@ -35,6 +37,20 @@ $(function () {
   
   $("#saveProduct").click(function () {
     $("#frmProduct").submit();
+  });
+  
+  $("#deleteProduct").click(function () {
+	var areYouSure = confirm("Are you sure you wish to delete this product?");
+    
+    if (areYouSure == true)
+    {
+      $.post({
+        url: "/dashboard/products/" + productId + "/delete", 
+        success : function () {
+          window.location.href = "/dashboard";
+        }
+      });
+    }
   });
 });
 /*]]>*/
@@ -80,6 +96,7 @@ $(function () {
     <div class="row">
       <div class="col-sm-6 offset-sm-3">
         <button id="saveProduct" class="btn btn-primary">Save Product</button>
+        <button id="deleteProduct" class="btn btn-danger">Delete Product</button>
       </div>
     </div>
   </div>

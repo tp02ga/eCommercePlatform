@@ -46,14 +46,34 @@ $(function()
     window.location.href = "/dashboard/products/" + id;
   });
   
+  $("body").on("click", "button[id*='deleteButton']", function () {
+    
+    var areYouSure = confirm("Are you sure you wish to delete this product?");
+    
+    if (areYouSure == true)
+    {
+      var id = $(this).attr("id");
+      id = id.split("-")[1];
+      
+      $.post({
+        url: "/dashboard/products/" + id + "/delete", 
+        success : function () {
+          location.reload();
+        }
+      });
+    }
+  });
+  
   $("body").on({
     mouseenter: function () {
       $(this).css("background-color", "rgb(228, 228, 228)");
       $(this).children("button[id*='editButton']").removeClass("hidden");
+      $(this).children("button[id*='deleteButton']").removeClass("hidden");
     },
     mouseleave: function () {
       $(this).css("background-color", "rgb(255, 255, 255)");
       $(this).children("button[id*='editButton']").addClass("hidden");
+      $(this).children("button[id*='deleteButton']").addClass("hidden");
     }
   }, "div[id*='productCard']");
   
@@ -160,6 +180,8 @@ $(function()
 function showFinishedProduct(product) {
   $("#placeholderCard4-"+product.id).after("<div class=\"col-xs-12 col-sm-6 col-md-3 col-lg-2 card\" id=\"productCard-"+product.id+"\">" +
   		"<img class=\"center-block\" src='"+product.imageUrl+"'/>" +
+  		"<button class=\"btn btn-info center-block overlayEditButton hidden\" id=\"editButton-"+product.id+"\">Edit</button>"+
+      "<button class=\"btn btn-danger center-block overlayDeleteButton hidden\" id=\"deleteButton-" + product.id + "\">Delete</button>"+
   		"<p>"+product.shortDescription+"</p>" +
   		"$" + product.price +
   		"</div>");

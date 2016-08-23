@@ -510,8 +510,14 @@ left
   max-width: 8em;
 }
 
-.overlayButton {
+.overlayEditButton {
   position: relative;
-  top: -2em;
+  top: -4em;
   margin-bottom: -2em;
+}
+
+.overlayDeleteButton {
+  position: relative;
+  top: 0em;
+  margin-bottom: -2.85em;
 }

@@ -140,9 +140,10 @@
           <div th:each="product : ${products}">
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 card" th:id="${'productCard-' + {product.id}}">
               <img class="center-block" th:src="${product.imageUrl}" />
-              <button class="btn btn-info center-block overlayButton hidden" th:id="${'editButton-' + {product.id}}">Edit</button>
+              <button class="btn btn-info center-block overlayEditButton hidden" th:id="${'editButton-' + {product.id}}">Edit</button>
+              <button class="btn btn-danger center-block overlayDeleteButton hidden" th:id="${'deleteButton-' + {product.id}}">Delete</button>
               <p th:text="${product.shortDescription}"></p>
-              <span th:text="${'$'+product.price}"></span>
+              <span th:text="${'$'+#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></span>
             </div>
           </div>
           
