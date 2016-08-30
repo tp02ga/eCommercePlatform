@@ -1,0 +1,17 @@
+.nav-bar-item {
+  width: 2em;
+  margin-top: -0.5em;
+}
+.card {
+  border: 1px solid;
+  height: 15em;
+}
+
+.card button[id*='createProduct'] {
+  margin-top: 6em;
+}
+
+.card img {
+  max-height: 8em;
+  max-width: 8em;
+}

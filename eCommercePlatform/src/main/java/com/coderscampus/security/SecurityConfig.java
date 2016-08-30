@@ -25,6 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     http
     .csrf().disable()
     .authorizeRequests()
+      .antMatchers("/").permitAll()
+      .antMatchers("/css/**").permitAll()
+      .antMatchers("/js/**").permitAll()
+      .antMatchers("/images/**").permitAll()
+      .antMatchers("/page*").permitAll()
       .antMatchers("/register").permitAll()
       .antMatchers("/dashboard").hasAnyRole("DASHBOARD")
       .anyRequest().authenticated()
@@ -32,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     .formLogin()
       .loginPage("/login")
       .defaultSuccessUrl("/dashboard")
-      .permitAll();
+      .permitAll()
+      .and()
+    .logout().logoutSuccessUrl("/");
   }
 }

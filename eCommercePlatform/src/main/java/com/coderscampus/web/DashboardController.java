@@ -18,12 +18,6 @@ public class DashboardController
 {
   private ProductRepository productRepo;
   
-  @RequestMapping(value="/", method=RequestMethod.GET)
-  public String rootGet ()
-  {
-    return "redirect:/dashboard";
-  }
-  
   @RequestMapping(value="/dashboard", method=RequestMethod.GET)
   public String dashboardGet (@AuthenticationPrincipal User user, ModelMap model)
   {

@@ -20,24 +20,37 @@
     <div class="collapse navbar-collapse"
       id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/dashboard">Home</a></li>
+        <li><a href="/">Home</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="#"><img class="nav-bar-item"
             src="/images/ecommerce.png" /></a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle"
-          data-toggle="dropdown" role="button" aria-haspopup="true"
-          aria-expanded="false"><img class="nav-bar-item"
-            src="/images/default_user.png" /> <span class="caret"></span></a>
+        
+        <li sec:authorize="!hasRole('ROLE_USER')"><button class="btn btn-default" style="margin: 0.5em 2em 0em 1em;" id="login">Login</button></li>
+        
+        <li sec:authorize="hasRole('ROLE_USER')" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <img class="nav-bar-item" src="/images/default_user.png" /> 
+            <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
             <li><a href="#">Edit Profile</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/logout">Logout</a></li>
-          </ul></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->
   </div>
+  <script type="text/javascript">
+    $(function () {
+      $("#login").click(function () {
+        window.location.href = '/login';
+      });
+    });
+  </script>
   <!-- /.container-fluid -->
 </nav>
 </body>

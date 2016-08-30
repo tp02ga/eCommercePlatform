@@ -2,6 +2,15 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <title>Login</title>
+<link rel="stylesheet" href="../css/global.css" />
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+  crossorigin="anonymous" />
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+  integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+  crossorigin="anonymous" />
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 
@@ -14,31 +23,36 @@ $(function () {
 </script>
 </head>
 <body>
-	<form action="" method="post">
-		<fieldset>
-			<legend>Please Login</legend>
-			<!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
-			<div th:if ="${param.error != null}">
-				Failed to login.
-				<span th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-	                  Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
-				</span>
-			</div>
-			<!-- the configured LogoutConfigurer#logoutSuccessUrl is /login?logout and contains the query param logout -->
-			<div th:if="${param.logout != null}">You have been logged out.</div>
-			<p>
-				<label for="username">Username</label> <input type="text"
-					id="username" name="username" />
-			</p>
-			<p>
-				<label for="password">Password</label> <input type="password"
-					id="password" name="password" />
-			</p>
-			<div>
-				<button type="submit" class="btn">Log in</button> 
-				<input type="button" style="margin-left: 3em;" id="createNewUser" value="Create New User"/>
-			</div>
-		</fieldset>
-	</form>
+    <div th:replace="fragments/header :: header"></div>
+    <h1>&nbsp;</h1>
+    
+    <div class="container">
+    	<form action="" method="post">
+    		<fieldset>
+    			<legend>Please Login</legend>
+    			<!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
+    			<div th:if ="${param.error != null}">
+    				Failed to login.
+    				<span th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+    	                  Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+    				</span>
+    			</div>
+    			<!-- the configured LogoutConfigurer#logoutSuccessUrl is /login?logout and contains the query param logout -->
+    			<div th:if="${param.logout != null}">You have been logged out.</div>
+    			<p>
+    				<label for="username">Username</label> <input type="text"
+    					id="username" name="username" />
+    			</p>
+    			<p>
+    				<label for="password">Password</label> <input type="password"
+    					id="password" name="password" />
+    			</p>
+    			<div>
+    				<button type="submit" class="btn btn-default">Log in</button> 
+    				<input type="button" class="btn btn-primary" style="margin-left: 3em;" id="createNewUser" value="Create New User"/>
+    			</div>
+    		</fieldset>
+    	</form>
+    </div>
 </body>
 </html>
