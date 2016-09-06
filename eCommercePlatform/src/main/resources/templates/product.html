@@ -27,6 +27,20 @@
 $(function () {
   var formattedPrice = [[${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}]];
   var productId = /*[[${product.id}]]*/ 1;
+  var consumerView = window.location.href.indexOf("dashboard") == -1;
+  
+  if (consumerView)
+  {
+    $("input, textarea").each(function () {
+      $(this).prop("disabled", true);
+    }); 
+    
+    $("#saveProduct, #deleteProduct").each(function () {
+      $(this).hide();
+    });
+    
+    $("#cartDiv").removeClass("hidden");
+  }
   
   $("#price").val(formattedPrice);
   
@@ -66,9 +80,9 @@ $(function () {
       <div class="col-xs-12 col-sm-3">
         <img style="width: 20em;" class="img-responsive" th:src="${product.imageUrl}"/>
       </div>
-      <form id="frmProduct" th:action="${product.id + '/edit'}" method="post">
+      <form id="frmProduct" class="form-horizontal" th:action="${product.id + '/edit'}" method="post">
         <input type="hidden" th:field="${product.id}"/>
-        <div class="col-xs-12 col-sm-6 form-group">
+        <div class="col-xs-12 col-sm-5 form-group">
           <div>
             Image Url:
           </div>
@@ -88,9 +102,15 @@ $(function () {
             <textarea class="form-control" placeholder="Please type in a description of your product here." th:field="${product.description}"></textarea>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-3">
-          <div>Price $<input type="text" th:field="${product.price}" size="5"/></div>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-3">
+          <div class="form-group">
+            <div>Price $<input type="text" class="form-control" th:field="${product.price}" size="5"/></div>
+          </div>
+          <div id="cartDiv" class="hidden form-group">
+            <button type="button" class="btn btn-primary form-control" id="addToCard">Add to Cart</button>
+          </div> 
         </div>
+        
       </form>
     </div>
     <div class="row">

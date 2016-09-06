@@ -27,6 +27,7 @@ public class User
   private Cart cart;
   // OneToMany relationship between a User and its Authorities
   private Set<Authority> authorities = new HashSet<>();
+  private Set<Order> orders = new HashSet<>();
   
   @Id
   @GeneratedValue
@@ -102,5 +103,16 @@ public class User
   public void setAuthorities(Set<Authority> authorities)
   {
     this.authorities = authorities;
+  }
+
+  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+  public Set<Order> getOrders()
+  {
+    return orders;
+  }
+
+  public void setOrders(Set<Order> orders)
+  {
+    this.orders = orders;
   }
 }

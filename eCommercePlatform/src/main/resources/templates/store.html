@@ -21,6 +21,7 @@
   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
   integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
   crossorigin="anonymous"></script>
+<script src="/js/store.js"></script>
   </head>
   <body>
     <div th:replace="fragments/header :: header"></div>
@@ -30,7 +31,7 @@
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 card" th:id="${'productCard-' + {product.id}}">
           <img class="center-block" th:src="${product.imageUrl}" />
           <p th:text="${product.shortDescription}"></p>
-          <button class="btn btn-primary" th:text="${'$'+#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">$29.99</button>
+          <button class="btn btn-primary" th:id="|product-${product.id}|" th:text="${'$'+#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">$29.99</button>
         </div>
       </div>
     </div>
