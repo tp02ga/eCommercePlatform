@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,23 +23,28 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Cart
 {
-  private Long userId;
+  private Long id;
   private Integer quantity;
   private Date dateAdded;
   private User user;
   private Set<Product> products = new HashSet<>();
   
+  public Cart () {
+    
+  }
+  
   @Id  
+  @Column(name="user_id")
   @GeneratedValue(generator="myGenerator")  
   @GenericGenerator(name="myGenerator", strategy="foreign", parameters=@Parameter(value="user", name = "property"))
-  public Long getUserId()
+  public Long getId()
   {
-    return userId;
+    return id;
   }
 
-  public void setUserId(Long userId)
+  public void setId(Long id)
   {
-    this.userId = userId;
+    this.id = id;
   }
 
   public Integer getQuantity()

@@ -29,6 +29,10 @@ public class User
   private Set<Authority> authorities = new HashSet<>();
   private Set<Order> orders = new HashSet<>();
   
+  public User () {
+    
+  }
+  
   @Id
   @GeneratedValue
   public Long getId()

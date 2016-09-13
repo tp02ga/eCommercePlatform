@@ -1,7 +1,10 @@
 package com.coderscampus.web;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.coderscampus.domain.Cart;
 import com.coderscampus.domain.Product;
 import com.coderscampus.domain.User;
+import com.coderscampus.repository.CartRepository;
 import com.coderscampus.repository.ProductRepository;
 import com.coderscampus.repository.UserRepository;
 
@@ -23,6 +28,7 @@ public class ConsumerProductController
 {
   private ProductRepository productRepo;
   private UserRepository userRepo;
+  private CartRepository cartRepo;
   
   @RequestMapping(value="{productId}", method=RequestMethod.GET)
   public String viewProduct (@PathVariable Long productId, ModelMap model)
@@ -35,25 +41,49 @@ public class ConsumerProductController
   }
   
   @RequestMapping(value="{productId}", method=RequestMethod.POST)
-  public @ResponseBody String addProductToCart (@AuthenticationPrincipal User user, 
+  public @ResponseBody Cart addProductToCart (@AuthenticationPrincipal User user, 
       HttpServletRequest request, @PathVariable Long productId, ModelMap model)
   {
-    // if user isn't logged in, then store the cart information on the session
+    Cart cart = new Cart();
+    // if user isn't logged in, then have them login or create an account
     if (user == null)
     {
-      HttpSession session = request.getSession();
-      
-      // create the shopping cart object and populate it with the product
+      return null;
     }
     else
     {
       // store cart information on user domain object
       user = userRepo.findOne(user.getId());
-
-      // create the shopping cart object and populate it with the product
+      Set<Product> products = new HashSet<>();
+      
+      if (user.getCart() == null)
+      {
+        // create the shopping cart object and populate it with the product
+        user.setCart(cart);
+        cart.setUser(user);
+        
+        cart = cartRepo.save(cart);
+      }
+      else
+      {
+        cart = user.getCart();
+        products.addAll(cart.getProducts());
+      }
+      
+      Set<Cart> carts = new HashSet<>();
+      
+      Product product = productRepo.findOne(productId);
+      product.setCarts(carts);
+      products.add(product);
+      
+      cart.setProducts(products);
+      cart.setDateAdded(new Date());
+      carts.add(cart);
+      
+      productRepo.save(product);
     }
     
-    return "{\"success\": true}";
+    return cart;
   }
   
   @Autowired
@@ -66,6 +96,12 @@ public class ConsumerProductController
   public void setUserRepo(UserRepository userRepo)
   {
     this.userRepo = userRepo;
+  }
+
+  @Autowired
+  public void setCartRepo(CartRepository cartRepo)
+  {
+    this.cartRepo = cartRepo;
   }
   
   
