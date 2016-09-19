@@ -16,11 +16,15 @@
   max-width: 8em;
 }
 
+.productImg {
+  max-height: 8em;
+  max-width: 8em;
+}
+
 #productsInCart {
     margin-top: -2.7em;
-    margin-left: 1.6em;
+    margin-left: 3.6em;
     background-color: red;
-    z-index: 1;
     border-radius: 10px;
     margin-right: 1.5em;
     font-weight: bold;

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>eCommerce Dashboard</title>
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+  crossorigin="anonymous" />
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+  integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+  crossorigin="anonymous" />
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/css/cart.css" />
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+  crossorigin="anonymous"></script>
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+  <h1>&nbsp;</h1>
+  <div class="container">
+    <div class="row" id="productRow" th:each="product : ${cart.products}">
+      <div class="col-xs-12 col-sm-2">
+        <img class="productImg" th:src="${product.imageUrl}"/>
+        
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div th:text="${product.shortDescription}"></div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div th:text="${'$'+#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-8 col-sm-4">
+        <span th:text="|Total: ${'$'+#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}|"></span>
+      </div>
+    </div>
+    <div class="row top-spacing">
+      <div class="col-xs-12 col-sm-offset-8 col-sm-4">
+        <form action="" method="post">
+          <button class="btn btn-primary"><i class="glyphicon glyphicon-shopping-cart"></i> Purchase</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

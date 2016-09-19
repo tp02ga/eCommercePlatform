@@ -24,8 +24,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="#" style="z-index: -1"><img class="nav-bar-item"
-            src="/images/ecommerce.png" /></a><div id="productsInCart"></div></li>
+        <li><a href="/cart" style="z-index: 1"><img class="nav-bar-item"
+            src="/images/ecommerce.png" /></a><div id="productsInCart" style="cursor: pointer; z-index: 100;"></div></li>
         
         <li sec:authorize="!hasRole('ROLE_USER')"><button class="btn btn-default" style="margin: 0.5em 2em 0em 1em;" id="login">Login</button></li>
         
@@ -46,6 +46,10 @@
   </div>
   <script type="text/javascript">
     $(function () {
+      $("#productsInCart").click(function () {
+        window.location.href = "/cart";
+      });
+      
       $.ajax({
         url: '/itemsInCart',
         type: 'json',
